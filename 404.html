@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Page not found | The Compass</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%AD%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Source+Sans+3:ital,wght@0,400;0,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --parchment:#F3E7CD;
+    --sepia:#8A5A2B;
+    --ink:#3A2513;
+    --ink-soft:#654428;
+    --brass:#A97D3B;
+    --serif:"Cormorant Garamond","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:"Source Sans 3","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;min-height:100vh;min-height:100svh;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--sans);color:var(--ink);
+    background-color:var(--parchment);
+    padding:24px;text-align:center;
+  }
+  .wrap{max-width:520px}
+  .mark{font-size:3rem;margin-bottom:8px}
+  h1{
+    font-family:var(--serif);font-weight:700;font-style:italic;
+    font-size:clamp(2.2rem,7vw,3.2rem);margin:0 0 12px;color:var(--sepia);
+  }
+  p{font-size:1.08rem;line-height:1.6;color:var(--ink-soft);margin:0 0 28px}
+  a.home{
+    display:inline-block;font-weight:600;text-decoration:none;
+    color:var(--ink);border:1.5px solid var(--ink);border-radius:3px;
+    padding:12px 26px;transition:background-color .2s,color .2s;
+  }
+  a.home:hover{background-color:var(--brass);border-color:var(--brass);color:var(--parchment)}
+  :focus-visible{outline:3px solid var(--brass);outline-offset:3px;border-radius:2px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="mark" aria-hidden="true">🧭</div>
+    <h1>Off the map</h1>
+    <p>The page you're looking for doesn't exist &mdash; or has moved. Let's get you back to solid ground.</p>
+    <a class="home" href="/the-compass/">Return to The Compass</a>
+  </div>
+</body>
+</html>
