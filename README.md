@@ -8,11 +8,13 @@ The core site is a single file, `index.html` — no build step, runs on GitHub P
 
 ```
 the-compass/
+├── .github/workflows/deploy-pages.yml   ← builds & deploys to Pages
 ├── index.html
 ├── submit.html                   ← "Write for us" submissions page
 ├── 404.html                      ← styled not-found page
 ├── robots.txt
 ├── sitemap.xml
+├── CONTRIBUTING.md                ← workflow notes for editors
 ├── README.md
 ├── pdfs/                         ← magazine PDFs go here
 │   ├── The-Compass-Vol-3-3.pdf
@@ -24,11 +26,17 @@ the-compass/
 
 PDF file names must match the `file` entries in the `ISSUES` list near the bottom of `index.html`.
 
+## Repo hygiene
+
+- `main` is protected against force-pushes and deletion.
+- Site deploys are handled by `.github/workflows/deploy-pages.yml` — GitHub Pages is set to "Deploy from GitHub Actions" in **Settings → Pages**, not "Deploy from a branch".
+- See [CONTRIBUTING.md](CONTRIBUTING.md) for the day-to-day editing workflow.
+
 ## Publishing on GitHub Pages
 
 1. Create a new public repository on GitHub (for example `the-compass`).
 2. Add all the files in this repo — `index.html`, `submit.html`, `404.html`, `robots.txt`, `sitemap.xml`, `README.md` — plus the `pdfs` folder (see the note on large files below).
-3. In the repository, open **Settings → Pages**. Under "Build and deployment", choose **Deploy from a branch**, select `main` and `/ (root)`, then **Save**.
+3. In the repository, open **Settings → Pages**. Under "Build and deployment", choose **GitHub Actions** as the source (the workflow at `.github/workflows/deploy-pages.yml` handles the rest — no branch/folder to pick).
 4. After a minute or two the site is live at `https://<your-username>.github.io/the-compass/`.
 
 ## Large PDF files: important
