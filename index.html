@@ -301,7 +301,7 @@ section[id]{scroll-margin-top:calc(var(--nav-h) + 12px)}
    ========================================================= */
 .archive-intro{margin:-.2em 0 0;max-width:38rem;color:var(--ink-soft)}
 
-/* search + tag filters */
+/* search */
 .archive-controls{margin-top:clamp(28px,4vw,40px)}
 .archive-search{position:relative;max-width:420px}
 .archive-search svg{
@@ -316,21 +316,6 @@ section[id]{scroll-margin-top:calc(var(--nav-h) + 12px)}
 }
 .archive-search input::placeholder{color:var(--ink-soft);opacity:.8}
 .archive-search input:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
-.tag-filters{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
-.tag-pill{
-  display:inline-flex;align-items:center;
-  padding:6px 14px;border:1.3px solid var(--sepia-soft);border-radius:999px;
-  background:transparent;color:var(--ink-soft);
-  font:600 .86rem/1 var(--sans);letter-spacing:.01em;text-transform:lowercase;
-  cursor:pointer;transition:background-color .15s,color .15s,border-color .15s;
-}
-.tag-pill:hover{border-color:var(--sepia);color:var(--ink)}
-.tag-pill[aria-pressed="true"]{background:var(--sepia);border-color:var(--sepia);color:var(--parchment)}
-.issue-tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
-.issue-tags .tag-pill{
-  padding:3px 10px;font-size:.76rem;pointer-events:none;
-  border-color:rgba(138,90,43,.4);color:var(--ink-soft);background:rgba(233,220,182,.5);
-}
 .archive-empty{
   margin:32px 0 0;padding:24px;text-align:center;
   border:1.5px dashed rgba(138,90,43,.4);border-radius:4px;color:var(--ink-soft);
@@ -548,14 +533,13 @@ section[id]{scroll-margin-top:calc(var(--nav-h) + 12px)}
       <div class="archive-controls">
         <div class="archive-search">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          <label class="sr-only" for="archiveSearch">Search issues by volume, month, year, or topic</label>
-          <input type="search" id="archiveSearch" placeholder="Search by volume, month, year, or topic…" autocomplete="off">
+          <label class="sr-only" for="archiveSearch">Search issues by volume, month, or year</label>
+          <input type="search" id="archiveSearch" placeholder="Search by volume, month, or year…" autocomplete="off">
         </div>
-        <div class="tag-filters" id="tagFilters" role="group" aria-label="Filter by topic"></div>
       </div>
 
       <div id="archiveSlot"></div>
-      <p class="archive-empty" id="archiveEmpty" hidden>No issues match your search. <button type="button" class="text-link" id="archiveReset">Clear filters</button></p>
+      <p class="archive-empty" id="archiveEmpty" hidden>No issues match your search. <button type="button" class="text-link" id="archiveReset">Clear search</button></p>
     </div>
   </section>
 </main>
@@ -600,22 +584,17 @@ section[id]{scroll-margin-top:calc(var(--nav-h) + 12px)}
      it is online, or type it yourself, e.g. "45 MB".
    - cover: leave "" for a generated cover, or give an image path such as
      "covers/vol-3-3.jpg".
-   - tags: an array of topic labels for this issue, e.g. ["geometry","pedagogy"].
-     Keep them short and reuse the same spelling/casing across issues so they
-     group together correctly in the topic filter. Leave as [] for none.
-     NOTE: the tags below are placeholders to demonstrate the filter — replace
-     them with the real topics once actual issue content is ready.
    ========================================================================= */
 const ISSUES = [
-  { id:"3-3", volume:3, number:3, month:"July",    year:2026, file:"pdfs/The-Compass-Vol-3-3.pdf", size:"", cover:"", tags:["geometry","pedagogy"] },
-  { id:"3-2", volume:3, number:2, month:"April",   year:2026, file:"pdfs/The-Compass-Vol-3-2.pdf", size:"", cover:"", tags:["number theory","puzzles"] },
-  { id:"3-1", volume:3, number:1, month:"January", year:2026, file:"pdfs/The-Compass-Vol-3-1.pdf", size:"", cover:"", tags:["science experiments"] },
-  { id:"2-4", volume:2, number:4, month:"October", year:2025, file:"pdfs/The-Compass-Vol-2-4.pdf", size:"", cover:"", tags:["pedagogy","history of math"] },
-  { id:"2-3", volume:2, number:3, month:"July",    year:2025, file:"pdfs/The-Compass-Vol-2-3.pdf", size:"", cover:"", tags:["geometry","puzzles"] },
-  { id:"2-2", volume:2, number:2, month:"April",   year:2025, file:"pdfs/The-Compass-Vol-2-2.pdf", size:"", cover:"", tags:["algebra","number theory"] },
-  { id:"2-1", volume:2, number:1, month:"January", year:2025, file:"pdfs/The-Compass-Vol-2-1.pdf", size:"", cover:"", tags:["science experiments","pedagogy"] },
-  { id:"1-2", volume:1, number:2, month:"October", year:2024, file:"pdfs/The-Compass-Vol-1-2.pdf", size:"", cover:"", tags:["geometry"] },
-  { id:"1-1", volume:1, number:1, month:"July",    year:2024, file:"pdfs/The-Compass-Vol-1-1.pdf", size:"", cover:"", tags:["puzzles","history of math"] }
+  { id:"3-3", volume:3, number:3, month:"July",    year:2026, file:"pdfs/The-Compass-Vol-3-3.pdf", size:"", cover:"" },
+  { id:"3-2", volume:3, number:2, month:"April",   year:2026, file:"pdfs/The-Compass-Vol-3-2.pdf", size:"", cover:"" },
+  { id:"3-1", volume:3, number:1, month:"January", year:2026, file:"pdfs/The-Compass-Vol-3-1.pdf", size:"", cover:"" },
+  { id:"2-4", volume:2, number:4, month:"October", year:2025, file:"pdfs/The-Compass-Vol-2-4.pdf", size:"", cover:"" },
+  { id:"2-3", volume:2, number:3, month:"July",    year:2025, file:"pdfs/The-Compass-Vol-2-3.pdf", size:"", cover:"" },
+  { id:"2-2", volume:2, number:2, month:"April",   year:2025, file:"pdfs/The-Compass-Vol-2-2.pdf", size:"", cover:"" },
+  { id:"2-1", volume:2, number:1, month:"January", year:2025, file:"pdfs/The-Compass-Vol-2-1.pdf", size:"", cover:"" },
+  { id:"1-2", volume:1, number:2, month:"October", year:2024, file:"pdfs/The-Compass-Vol-1-2.pdf", size:"", cover:"" },
+  { id:"1-1", volume:1, number:1, month:"July",    year:2024, file:"pdfs/The-Compass-Vol-1-1.pdf", size:"", cover:"" }
 ];
 
 (function(){
@@ -688,20 +667,8 @@ function dlMarkup(is, large){
   </div>`;
 }
 
-/* ------------------------------------------------------------------ tags */
-function tagPillsMarkup(is){
-  if (!is.tags || !is.tags.length) return "";
-  return `<div class="issue-tags">${is.tags.map(t =>
-    `<span class="tag-pill">${esc(t)}</span>`).join("")}</div>`;
-}
-function uniqueTags(){
-  const set = new Set();
-  ISSUES.forEach(is => (is.tags || []).forEach(t => set.add(t)));
-  return [...set].sort();
-}
-
 /* ---------------------------------------------------------------- render */
-const ARCHIVE_STATE = { query:"", tag:null };
+const ARCHIVE_STATE = { query:"" };
 
 function render(){
   const cur = ISSUES[0];
@@ -712,35 +679,17 @@ function render(){
       <div class="current-copy">
         <h3 class="issue-name">Volume ${esc(cur.id)}</h3>
         <p class="issue-date">${esc(cur.month)} ${cur.year}</p>
-        ${tagPillsMarkup(cur)}
         <p class="note">The latest issue, free to download and share with teachers and students, with attribution. This is a large file; on mobile data, Wi-Fi is recommended.</p>
         ${dlMarkup(cur, true)}
       </div>
     </div>`;
 
-  renderTagFilters();
   renderArchive();
 }
 
-function renderTagFilters(){
-  const el = document.getElementById("tagFilters");
-  const tags = uniqueTags();
-  if (!tags.length){ el.innerHTML = ""; return; }
-  el.innerHTML = tags.map(t => `<button type="button" class="tag-pill" data-tag="${esc(t)}" aria-pressed="${ARCHIVE_STATE.tag === t}">${esc(t)}</button>`).join("");
-  el.querySelectorAll(".tag-pill").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const t = btn.dataset.tag;
-      ARCHIVE_STATE.tag = ARCHIVE_STATE.tag === t ? null : t;
-      renderTagFilters();
-      renderArchive();
-    });
-  });
-}
-
 function issueMatches(is, state){
-  if (state.tag && !(is.tags || []).includes(state.tag)) return false;
   if (state.query){
-    const hay = `volume ${is.id} ${is.month} ${is.year} ${(is.tags || []).join(" ")}`.toLowerCase();
+    const hay = `volume ${is.id} ${is.month} ${is.year}`.toLowerCase();
     if (!hay.includes(state.query.toLowerCase())) return false;
   }
   return true;
@@ -770,7 +719,6 @@ function renderArchive(){
           <div>
             <h4>Volume ${esc(is.id)}</h4>
             <p class="date">${esc(is.month)} ${is.year}</p>
-            ${tagPillsMarkup(is)}
             ${dlMarkup(is, false)}
           </div>
         </li>`).join("")}
@@ -787,9 +735,8 @@ function initArchiveControls(){
     renderArchive();
   });
   resetBtn.addEventListener("click", () => {
-    ARCHIVE_STATE.query = ""; ARCHIVE_STATE.tag = null;
+    ARCHIVE_STATE.query = "";
     input.value = "";
-    renderTagFilters();
     renderArchive();
   });
 }
