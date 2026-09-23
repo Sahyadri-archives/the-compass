@@ -654,7 +654,7 @@ const PDF_ICON = `<svg class="dl-icon" viewBox="0 0 22 26" aria-hidden="true">
   <rect x="0" y="13" width="17" height="8" rx="1" fill="#B23A24"/>
   <text x="8.5" y="19.3" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="6.2" fill="#fff">PDF</text>
 </svg>`;
-const idleLabel = is => `Download (PDF, ${is.size || "large file"})`;
+const idleLabel = is => is.size ? `Download (${is.size})` : "Download";
 
 function dlMarkup(is, large){
   return `<div class="dl${large ? " dl--large" : ""}" data-id="${esc(is.id)}" data-state="idle">
@@ -759,7 +759,7 @@ function detectSizes(){
       document.querySelectorAll(`.dl[data-id="${is.id}"]`).forEach(el => {
         if (el.dataset.state === "idle") el.querySelector(".dl-label").textContent = idleLabel(is);
       });
-    }catch(e){ /* offline or blocked: keep the "large file" label */ }
+    }catch(e){ /* offline or blocked: keep the plain "Download" label */ }
   });
 }
 
