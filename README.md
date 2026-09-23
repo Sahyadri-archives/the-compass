@@ -43,11 +43,20 @@ If issues grow past 100 MB, or the archive gets close to 1 GB, attach the PDFs t
 Open `index.html`, find `const ISSUES = [` and add the new issue at the **top** of the list. The first entry automatically becomes the current issue (including the hero line), and the previous one moves into the archive.
 
 ```js
-{ id:"3-4", volume:3, number:4, month:"October", year:2026, file:"pdfs/The-Compass-Vol-3-4.pdf", size:"", cover:"" },
+{ id:"3-4", volume:3, number:4, month:"October", year:2026, file:"pdfs/The-Compass-Vol-3-4.pdf", size:"", cover:"", tags:["geometry","pedagogy"] },
 ```
 
 - `size` — leave empty and the site reads the real file size once it's online, or type it yourself (`"45 MB"`).
 - `cover` — leave empty for a generated cover, or give an image path such as `"covers/vol-3-4.jpg"` (an A4-shaped image around 600 × 850 px works well).
+- `tags` — an array of topic labels, e.g. `["geometry","puzzles"]`. Leave as `[]` for none. Reuse the same spelling/casing across issues so they group correctly. The nine placeholder issues currently ship with example tags (`geometry`, `pedagogy`, `puzzles`, etc.) — replace these with the real topics once actual content is ready.
+
+## Search and topic filter
+
+The Archive section has a search box and a row of topic-filter pills, both driven entirely by the `ISSUES` data — no extra setup needed. The search box matches against volume, month, year and tags; the pills are generated automatically from whatever tags exist across all issues, so a tag only appears as a filter once at least one issue uses it.
+
+## Write for us
+
+`submit.html` is a standalone page with submission guidelines for teachers and students who want to contribute. It's linked from the main nav ("Write for us") and the footer. Edit the topics list, guidelines, and the contact email directly in that file — it's independent of `index.html` and needs no build step either.
 
 ## Testing on your own computer
 
