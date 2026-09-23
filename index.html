@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Compass | Community Mathematics Centre, Schools of the KFI</title>
+<meta name="description" content="The Compass is a free online magazine of mathematics and science for teachers and students, published by the Community Mathematics Centre, Schools of the Krishnamurti Foundation India (KFI).">
+<meta name="theme-color" content="#F3E7CD">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%AD%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   Design tokens
+   ========================================================= */
+:root{
+  --parchment:#F3E7CD;
+  --parchment-deep:#EADBB8;
+  --vellum:#DFC99C;
+  --sepia:#8A5A2B;
+  --sepia-soft:#A9804F;
+  --ink:#3A2513;
+  --ink-soft:#654428;
+  --brass:#A97D3B;
+  --oxide:#8E3B24;
+  --verdigris:#4F6B59;
+  --footer:#4B3322;
+  --footer-text:#E6D6B2;
+
+  --serif:"Cormorant Garamond","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:"Source Sans 3","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+
+  --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .22  0 0 0 0 .1  0 0 0 .10 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  --foxing:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='900'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.006' numOctaves='3' seed='7'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .28  0 0 0 0 .1  0 0 0 .16 -.03'/></filter><rect width='100%' height='100%' filter='url(%23f)'/></svg>");
+
+  --nav-h:64px;
+  color-scheme:light;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{
+  margin:0;
+  font-family:var(--sans);
+  font-size:1.0625rem;
+  line-height:1.65;
+  color:var(--ink);
+  background-color:var(--parchment);
+  background-image:var(--grain),var(--foxing);
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--brass);outline-offset:3px;border-radius:2px}
+
+.skip{
+  position:absolute;left:16px;top:-60px;z-index:100;
+  background:var(--ink);color:var(--parchment);padding:10px 16px;border-radius:3px;text-decoration:none;
+}
+.skip:focus{top:calc(12px + env(safe-area-inset-top,0px))}
+
+section[id]{scroll-margin-top:calc(var(--nav-h) + 12px)}
+
+/* =========================================================
+   Navigation
+   ========================================================= */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  padding-top:env(safe-area-inset-top,0px);
+  transition:background-color .3s ease,box-shadow .3s ease;
+}
+.nav.is-scrolled{
+  background-color:rgba(243,231,205,.94);
+  box-shadow:0 1px 0 rgba(138,90,43,.28);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+}
+.nav-inner{
+  max-width:1200px;margin:0 auto;height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:0 clamp(16px,4vw,32px);
+}
+.brand{
+  display:flex;align-items:center;gap:10px;text-decoration:none;
+  font-family:var(--serif);font-weight:700;font-size:1.3rem;letter-spacing:.01em;color:var(--ink);
+}
+.brand svg{width:28px;height:28px;flex:none}
+.nav-links{display:flex;gap:clamp(14px,2.4vw,30px);list-style:none;margin:0;padding:0}
+.nav-links a{
+  text-decoration:none;font-size:.98rem;font-weight:600;color:var(--ink-soft);
+  padding:6px 0;border-bottom:1.5px solid transparent;transition:color .2s,border-color .2s;
+}
+.nav-links a:hover{color:var(--ink);border-bottom-color:var(--sepia-soft)}
+.menu-btn{
+  display:none;align-items:center;justify-content:center;
+  width:44px;height:44px;border:1px solid rgba(58,37,19,.35);border-radius:3px;
+  background:transparent;color:var(--ink);cursor:pointer;
+}
+@media (max-width:720px){
+  .menu-btn{display:inline-flex}
+  .nav-links{
+    position:absolute;left:0;right:0;top:calc(var(--nav-h) + env(safe-area-inset-top,0px));
+    flex-direction:column;gap:0;padding:8px clamp(16px,4vw,32px) 16px;
+    background:rgba(243,231,205,.98);box-shadow:0 1px 0 rgba(138,90,43,.28),0 12px 24px -12px rgba(58,37,19,.35);
+    display:none;
+  }
+  .nav.is-open .nav-links{display:flex}
+  .nav.is-open{background-color:rgba(243,231,205,.98)}
+  .nav-links a{display:block;padding:12px 0;border-bottom:1px solid rgba(138,90,43,.18)}
+}
+
+/* =========================================================
+   Hero
+   ========================================================= */
+.hero{
+  position:relative;overflow:hidden;
+  min-height:100vh;min-height:100svh;
+  background-color:#EFE0C0;
+  background-image:
+    radial-gradient(ellipse at 70% 45%,rgba(255,248,230,.55),rgba(255,248,230,0) 55%),
+    var(--grain),var(--foxing);
+}
+/* faint graticule in case the map cannot load */
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(90,58,30,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(90,58,30,.08) 1px,transparent 1px);
+  background-size:120px 120px;
+}
+.hero.map-ready::before{display:none}
+#map{
+  position:absolute;left:0;top:0;width:100%;height:100%;
+  opacity:0;transition:opacity 1.6s ease;will-change:transform;
+}
+#map.is-drawn{opacity:.82}
+/* legibility wash + burnt-edge vignette */
+.hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(90deg,rgba(239,224,192,.92) 0%,rgba(239,224,192,.72) 34%,rgba(239,224,192,0) 62%),
+    radial-gradient(ellipse at center,rgba(0,0,0,0) 55%,rgba(92,58,26,.28) 100%),
+    linear-gradient(180deg,rgba(243,231,205,0) 78%,var(--parchment) 100%);
+}
+.hero-inner{
+  position:relative;z-index:2;
+  max-width:1200px;margin:0 auto;
+  min-height:100vh;min-height:100svh;
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+  align-items:center;gap:clamp(16px,3vw,40px);
+  padding:calc(var(--nav-h) + 48px + env(safe-area-inset-top,0px)) clamp(20px,4vw,32px) 72px;
+}
+.hero-title{
+  margin:0;
+  font-family:var(--serif);font-weight:700;
+  font-size:clamp(3.5rem,8.6vw,7.6rem);
+  line-height:.9;letter-spacing:-.012em;color:var(--ink);
+  text-shadow:0 1px 0 rgba(255,248,230,.6);
+}
+/* map scale bar used as the title's underline */
+.scale-bar{
+  display:flex;width:min(320px,70%);height:9px;margin:26px 0 24px;
+  border:1.5px solid var(--ink);
+}
+.scale-bar span{flex:1}
+.scale-bar span:nth-child(odd){background:var(--ink)}
+.hero-issue{
+  margin:0 0 18px;
+  font-family:var(--serif);font-style:italic;font-weight:600;
+  font-size:clamp(1.4rem,2.5vw,1.9rem);line-height:1.25;color:var(--sepia);
+}
+.hero-inst{margin:0;font-size:1.06rem;line-height:1.55;color:var(--ink-soft)}
+.hero-inst strong{display:block;font-weight:700;color:var(--ink);font-size:1.12rem}
+.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;margin-top:36px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;
+  padding:12px 24px;border-radius:3px;border:1px solid var(--ink);
+  background:var(--ink);color:var(--parchment);
+  font:600 1rem/1.2 var(--sans);text-decoration:none;cursor:pointer;
+  transition:background-color .2s ease;
+}
+.btn:hover{background:#56391F}
+.text-link{
+  font-weight:600;color:var(--ink);text-decoration:underline;
+  text-decoration-color:var(--sepia-soft);text-decoration-thickness:1.5px;text-underline-offset:4px;
+}
+.text-link:hover{text-decoration-color:var(--ink)}
+
+.stage{
+  position:relative;justify-self:center;
+  width:100%;max-width:620px;aspect-ratio:1/1;
+}
+.stage canvas{display:block;width:100%!important;height:100%!important}
+.stage-fallback{display:none;position:absolute;inset:8%}
+.stage.no-webgl .stage-fallback{display:block}
+.stage-fallback .fb-needle{transform-origin:100px 100px;animation:swing 5s ease-in-out infinite}
+@keyframes swing{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(6deg)}}
+
+/* single orchestrated load sequence */
+@media (prefers-reduced-motion:no-preference){
+  .hero-copy > *{opacity:0;transform:translateY(10px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+  .hero-copy > :nth-child(2){animation-delay:.12s}
+  .hero-copy > :nth-child(3){animation-delay:.22s}
+  .hero-copy > :nth-child(4){animation-delay:.32s}
+  .hero-copy > :nth-child(5){animation-delay:.42s}
+}
+@keyframes rise{to{opacity:1;transform:none}}
+
+@media (max-width:900px){
+  .hero::after{
+    background:
+      linear-gradient(180deg,rgba(239,224,192,0) 30%,rgba(239,224,192,.85) 60%,rgba(239,224,192,.9) 80%,var(--parchment) 100%),
+      radial-gradient(ellipse at center,rgba(0,0,0,0) 50%,rgba(92,58,26,.25) 100%);
+  }
+  .hero-inner{
+    grid-template-columns:1fr;gap:4px;text-align:center;align-content:center;
+    padding-top:calc(var(--nav-h) + 12px + env(safe-area-inset-top,0px));padding-bottom:56px;
+  }
+  .stage{order:-1;max-width:min(400px,86vw)}
+  .scale-bar{margin-left:auto;margin-right:auto}
+  .hero-actions{justify-content:center}
+}
+
+/* =========================================================
+   Statement of intent
+   ========================================================= */
+.section{padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px)}
+.h2{
+  margin:0 0 .7em;
+  font-family:var(--serif);font-weight:600;
+  font-size:clamp(2.2rem,4.4vw,3.1rem);line-height:1.08;letter-spacing:-.005em;color:var(--ink);
+}
+.measure{max-width:40rem;margin:0 auto}
+.intent p{margin:0 0 1.25em}
+.intent .lead{font-size:1.2rem;line-height:1.6;color:var(--ink)}
+.intent .intro-to-list{margin-bottom:.6em;font-weight:600}
+.points{list-style:none;margin:0 0 1.9em;padding:0}
+.points li{position:relative;padding-left:2em;margin-bottom:.9em}
+.points li::before{
+  content:"";position:absolute;left:0;top:.28em;width:1.05em;height:1.05em;
+  background:var(--sepia);
+  -webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M10 0 L12.2 7.8 L20 10 L12.2 12.2 L10 20 L7.8 12.2 L0 10 L7.8 7.8Z'/></svg>") center/contain no-repeat;
+          mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M10 0 L12.2 7.8 L20 10 L12.2 12.2 L10 20 L7.8 12.2 L0 10 L7.8 7.8Z'/></svg>") center/contain no-repeat;
+}
+.intent .free{
+  font-family:var(--serif);font-size:1.45rem;font-weight:600;line-height:1.35;color:var(--sepia);
+  margin-top:1.6em;
+}
+
+/* =========================================================
+   Current issue
+   ========================================================= */
+.current{
+  background-color:var(--parchment-deep);
+  background-image:var(--grain);
+  border-top:1px solid rgba(138,90,43,.22);border-bottom:1px solid rgba(138,90,43,.22);
+}
+.wrap{max-width:1080px;margin:0 auto}
+.current-grid{
+  display:grid;grid-template-columns:minmax(190px,300px) minmax(0,1fr);
+  gap:clamp(32px,6vw,72px);align-items:center;
+}
+.cover-lg{
+  display:block;width:100%;aspect-ratio:1/1.414;
+  box-shadow:0 2px 0 rgba(58,37,19,.18),0 26px 40px -22px rgba(58,37,19,.65);
+  transform:rotate(-1.6deg);
+}
+.cover-lg svg,.cover-lg img{display:block;width:100%;height:100%;object-fit:cover}
+.issue-name{
+  margin:0;font-family:var(--serif);font-weight:700;
+  font-size:clamp(2.6rem,5.6vw,4rem);line-height:1;color:var(--ink);
+}
+.issue-date{margin:.25em 0 .9em;font-family:var(--serif);font-style:italic;font-weight:500;font-size:1.6rem;color:var(--sepia)}
+.current-copy p.note{margin:0 0 26px;max-width:36rem;color:var(--ink-soft)}
+.current .dl{max-width:430px}
+
+@media (max-width:720px){
+  .current-grid{grid-template-columns:1fr;justify-items:start}
+  .cover-lg{max-width:220px}
+}
+
+/* =========================================================
+   Archive
+   ========================================================= */
+.archive-intro{margin:-.2em 0 0;max-width:38rem;color:var(--ink-soft)}
+.vol{margin-top:clamp(40px,6vw,64px)}
+.vol-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+  padding-bottom:10px;border-bottom:1.5px solid rgba(138,90,43,.35);
+}
+.vol-head h3{margin:0;font-family:var(--serif);font-weight:600;font-size:1.75rem;line-height:1.1}
+.vol-head span{font-size:.98rem;color:var(--ink-soft)}
+.issues{
+  list-style:none;margin:0;padding:28px 0 0;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:34px 40px;
+}
+.issue{display:grid;grid-template-columns:92px minmax(0,1fr);gap:18px;align-items:start}
+.thumb{
+  display:block;width:92px;aspect-ratio:1/1.414;background:var(--vellum);
+  box-shadow:0 1px 0 rgba(58,37,19,.2),0 10px 18px -10px rgba(58,37,19,.6);
+}
+.thumb svg,.thumb img{display:block;width:100%;height:100%;object-fit:cover}
+.issue h4{margin:0;font-family:var(--serif);font-weight:700;font-size:1.45rem;line-height:1.1}
+.issue .date{margin:.15em 0 .8em;color:var(--ink-soft);font-size:.98rem}
+@media (max-width:420px){
+  .issues{grid-template-columns:1fr}
+  .issue{grid-template-columns:78px minmax(0,1fr)}
+  .thumb{width:78px}
+}
+
+/* =========================================================
+   Download component
+   ========================================================= */
+.dl{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+.dl-btn{
+  position:relative;overflow:hidden;isolation:isolate;
+  display:flex;align-items:center;gap:10px;min-height:46px;width:100%;
+  padding:10px 14px;border:1px solid var(--ink);border-radius:3px;
+  background:var(--ink);color:var(--parchment);
+  font:600 .95rem/1.25 var(--sans);text-align:left;cursor:pointer;
+  transition:background-color .2s ease;
+}
+.dl-btn:hover{background:#56391F}
+.dl-fill{
+  position:absolute;left:0;top:0;bottom:0;width:0;z-index:-1;
+  background:linear-gradient(90deg,#8C6428,var(--brass));
+  transition:width .18s linear;
+}
+.dl-icon{width:22px;height:26px;flex:none}
+.dl-spin{
+  display:none;width:20px;height:20px;flex:none;border-radius:50%;
+  border:2.5px solid rgba(243,231,205,.35);border-top-color:var(--parchment);
+  animation:spin .8s linear infinite;
+}
+.dl-label{min-width:0}
+.dl-cancel{
+  display:none;align-items:center;justify-content:center;width:46px;min-height:46px;
+  border:1px solid var(--ink);border-radius:3px;background:transparent;color:var(--ink);
+  font-size:1.35rem;line-height:1;cursor:pointer;
+}
+.dl-cancel:hover{background:rgba(58,37,19,.08)}
+.dl-msg{grid-column:1/-1;margin:0;min-height:1.3em;font-size:.86rem;line-height:1.4;color:var(--ink-soft)}
+
+.dl[data-state="loading"] .dl-btn,
+.dl[data-state="indeterminate"] .dl-btn{background:#5A3D24;cursor:progress}
+.dl[data-state="loading"] .dl-icon,
+.dl[data-state="indeterminate"] .dl-icon{display:none}
+.dl[data-state="loading"] .dl-spin,
+.dl[data-state="indeterminate"] .dl-spin{display:block}
+.dl[data-state="loading"] .dl-cancel{display:inline-flex}
+.dl[data-state="indeterminate"] .dl-fill{width:36%!important;animation:sweep 1.3s ease-in-out infinite}
+.dl[data-state="done"] .dl-btn{background:var(--verdigris);border-color:var(--verdigris)}
+.dl[data-state="done"] .dl-fill{opacity:0;transition:none}
+.dl[data-state="error"] .dl-msg{color:var(--oxide);font-weight:600}
+
+.dl--large .dl-btn{min-height:58px;padding:14px 20px;font-size:1.06rem}
+.dl--large .dl-cancel{width:58px;min-height:58px}
+.dl--large .dl-icon{width:26px;height:30px}
+.dl--large .dl-msg{font-size:.92rem}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes sweep{0%{transform:translateX(-100%)}100%{transform:translateX(290%)}}
+@media (prefers-reduced-motion:reduce){
+  .dl-spin{animation-duration:2.4s}
+  .dl[data-state="indeterminate"] .dl-fill{animation:none;width:100%!important;opacity:.45}
+}
+
+/* =========================================================
+   Footer
+   ========================================================= */
+.footer{
+  background-color:var(--footer);
+  background-image:var(--grain);
+  color:var(--footer-text);
+  padding:clamp(56px,8vw,88px) clamp(20px,4vw,32px) calc(28px + env(safe-area-inset-bottom,0px));
+}
+.footer-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(28px,5vw,64px)}
+.footer-brand{
+  display:flex;align-items:center;gap:12px;margin:0 0 18px;
+  font-family:var(--serif);font-weight:700;font-size:2rem;line-height:1;color:var(--parchment);
+}
+.footer-brand svg{width:34px;height:34px}
+.footer p{margin:0 0 1.1em;line-height:1.7;max-width:36rem}
+.footer a{
+  color:var(--parchment);text-decoration:underline;text-decoration-color:var(--brass);
+  text-decoration-thickness:1.5px;text-underline-offset:3px;word-break:break-word;
+}
+.footer a:hover{text-decoration-color:var(--parchment)}
+.footer .contact{font-weight:600;color:var(--parchment)}
+.footer-bottom{
+  margin-top:clamp(36px,6vw,56px);padding-top:20px;
+  border-top:1px solid rgba(230,214,178,.22);font-size:.92rem;color:#CDB88F;
+}
+.footer p.footer-bottom{max-width:none;margin-bottom:0}
+@media (max-width:760px){.footer-grid{grid-template-columns:1fr}}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#intent">Skip to content</a>
+
+<!-- ================= Navigation ================= -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top" aria-label="The Compass, back to top">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="18" fill="none" stroke="#3A2513" stroke-width="2"/>
+        <circle cx="20" cy="20" r="14" fill="none" stroke="#A97D3B" stroke-width="1"/>
+        <path d="M20 4 L23 20 L20 36 L17 20Z" fill="#3A2513"/>
+        <path d="M20 4 L23 20 L17 20Z" fill="#8E3B24"/>
+        <circle cx="20" cy="20" r="2.2" fill="#A97D3B"/>
+      </svg>
+      The Compass
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#intent">About</a></li>
+      <li><a href="#current">Current issue</a></li>
+      <li><a href="#archive">Archive</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+  <!-- ================= Hero ================= -->
+  <section class="hero" id="hero" aria-labelledby="hero-title">
+    <canvas id="map" aria-hidden="true"></canvas>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <h1 class="hero-title" id="hero-title">The Compass</h1>
+        <div class="scale-bar" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p class="hero-issue" id="heroIssue">Current Issue: Volume 3-3, July 2026</p>
+        <p class="hero-inst">
+          <strong>Community Mathematics Centre</strong>
+          Schools of the Krishnamurti Foundation India (KFI)
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="#current">See the current issue</a>
+          <a class="text-link" href="#archive">Browse the archive</a>
+        </div>
+      </div>
+
+      <div class="stage" id="stage" role="img" aria-label="An antique brass compass whose needle swings and settles as the page loads and scrolls">
+        <!-- Shown only if 3D graphics are unavailable -->
+        <svg class="stage-fallback" viewBox="0 0 200 200" aria-hidden="true">
+          <circle cx="100" cy="100" r="96" fill="#B88A45"/>
+          <circle cx="100" cy="100" r="86" fill="#EFE0BF" stroke="#3A2513" stroke-width="2"/>
+          <circle cx="100" cy="100" r="74" fill="none" stroke="#3A2513" stroke-width="1"/>
+          <g fill="#3A2513" font-family="Georgia,serif" font-weight="700" font-size="16" text-anchor="middle">
+            <text x="100" y="32" fill="#8E3B24">N</text><text x="172" y="106">E</text><text x="100" y="180">S</text><text x="28" y="106">W</text>
+          </g>
+          <g class="fb-needle">
+            <path d="M100 38 L108 100 L92 100Z" fill="#8E3B24"/>
+            <path d="M100 162 L108 100 L92 100Z" fill="#CFC7B6"/>
+          </g>
+          <circle cx="100" cy="100" r="6" fill="#B88A45" stroke="#3A2513"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Statement of intent ================= -->
+  <section class="section intent" id="intent" aria-labelledby="intent-title">
+    <div class="measure">
+      <h2 class="h2" id="intent-title">Statement of intent</h2>
+      <p class="lead">The magazine is published by the Community Mathematics Centre. It is a collaborative initiative of the schools of the Krishnamurti Foundation India (KFI).</p>
+      <p class="intro-to-list">Its intention is:</p>
+      <ul class="points">
+        <li>To provide material for mathematics and science teachers who teach at the high school or middle school levels, and for interested students.</li>
+        <li>To serve as a platform where teachers and students alike can share their findings and discoveries with others who share their love for the subject.</li>
+      </ul>
+      <p>In addition to mathematical content, in each issue we shall share a few ‘snippets’ from the world of science — extracts abstracted from articles in online magazines and summarized using online tools. These will be selected on the basis of intrinsic interest or significance, or connection with the world of mathematics.</p>
+      <p class="free">The Compass is published as an online magazine free of cost.</p>
+      <p>Articles may be downloaded and used freely by teachers, but with proper attribution.</p>
+    </div>
+  </section>
+
+  <!-- ================= Current issue ================= -->
+  <section class="section current" id="current" aria-labelledby="current-title">
+    <div class="wrap">
+      <h2 class="h2" id="current-title">Current issue</h2>
+      <div id="currentSlot"></div>
+    </div>
+  </section>
+
+  <!-- ================= Archive ================= -->
+  <section class="section archive" id="archive" aria-labelledby="archive-title">
+    <div class="wrap">
+      <h2 class="h2" id="archive-title">Archive</h2>
+      <p class="archive-intro">Every past issue, from the first in July 2024. Each file is a full-resolution PDF, so downloads may take a minute on slower connections.</p>
+      <div id="archiveSlot"></div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= Footer ================= -->
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-brand">
+          <svg viewBox="0 0 40 40" aria-hidden="true">
+            <circle cx="20" cy="20" r="18" fill="none" stroke="#F3E7CD" stroke-width="2"/>
+            <path d="M20 4 L23 20 L20 36 L17 20Z" fill="#F3E7CD"/>
+            <path d="M20 4 L23 20 L17 20Z" fill="#C0643F"/>
+            <circle cx="20" cy="20" r="2.2" fill="#A97D3B"/>
+          </svg>
+          The Compass
+        </p>
+        <p>Edited by Shailesh Shirali, Padmapriya Shirali, Shashidhar Jagadeeshan, Sai Jagan Mohan, Chris John &amp; Swati Sircar on behalf of schools of the KFI</p>
+      </div>
+      <div>
+        <p>The editor acknowledges with grateful thanks help received from Shri Jagadeesh Rayala and Shri Bhau Ghadge of Sahyadri School KFI in setting up this website.</p>
+        <p class="contact">Contact id: <a href="mailto:compass.math.2024@gmail.com">compass.math.2024@gmail.com</a></p>
+      </div>
+    </div>
+    <p class="footer-bottom">©Community Mathematics Centre, Schools of the KFI</p>
+  </div>
+</footer>
+
+<!-- Libraries: 3D compass (three.js), world map (d3 + topojson) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+
+<script>
+/* =========================================================================
+   EDIT HERE: the list of issues.
+   - The FIRST entry is shown as the current issue; the rest form the archive.
+   - Put each PDF in the "pdfs" folder with the file name given below.
+   - size: leave "" and the site reads the real file size automatically once
+     it is online, or type it yourself, e.g. "45 MB".
+   - cover: leave "" for a generated cover, or give an image path such as
+     "covers/vol-3-3.jpg".
+   ========================================================================= */
+const ISSUES = [
+  { id:"3-3", volume:3, number:3, month:"July",    year:2026, file:"pdfs/The-Compass-Vol-3-3.pdf", size:"", cover:"" },
+  { id:"3-2", volume:3, number:2, month:"April",   year:2026, file:"pdfs/The-Compass-Vol-3-2.pdf", size:"", cover:"" },
+  { id:"3-1", volume:3, number:1, month:"January", year:2026, file:"pdfs/The-Compass-Vol-3-1.pdf", size:"", cover:"" },
+  { id:"2-4", volume:2, number:4, month:"October", year:2025, file:"pdfs/The-Compass-Vol-2-4.pdf", size:"", cover:"" },
+  { id:"2-3", volume:2, number:3, month:"July",    year:2025, file:"pdfs/The-Compass-Vol-2-3.pdf", size:"", cover:"" },
+  { id:"2-2", volume:2, number:2, month:"April",   year:2025, file:"pdfs/The-Compass-Vol-2-2.pdf", size:"", cover:"" },
+  { id:"2-1", volume:2, number:1, month:"January", year:2025, file:"pdfs/The-Compass-Vol-2-1.pdf", size:"", cover:"" },
+  { id:"1-2", volume:1, number:2, month:"October", year:2024, file:"pdfs/The-Compass-Vol-1-2.pdf", size:"", cover:"" },
+  { id:"1-1", volume:1, number:1, month:"July",    year:2024, file:"pdfs/The-Compass-Vol-1-1.pdf", size:"", cover:"" }
+];
+
+(function(){
+"use strict";
+const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const byId = id => ISSUES.find(i => i.id === id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+/* ------------------------------------------------------------------ covers */
+const VOL_TINT = {1:"#3F5566", 2:"#4F6B59", 3:"#7A4A23"};
+function coverSVG(is){
+  const tint = VOL_TINT[is.volume] || "#7A4A23";
+  const n = is.number + 4, cx = 60, cy = 90, r = 28;
+  const pts = [];
+  for (let k = 0; k < n; k++){
+    const a = -Math.PI/2 + 2*Math.PI*k/n;
+    pts.push([cx + r*Math.cos(a), cy + r*Math.sin(a)]);
+  }
+  const poly = pts.map(p => p.map(v => v.toFixed(2)).join(",")).join(" ");
+  let star = "";
+  for (let k = 0; k < n; k++){
+    const a = pts[k], b = pts[(k+2) % n];
+    star += `M${a[0].toFixed(2)} ${a[1].toFixed(2)}L${b[0].toFixed(2)} ${b[1].toFixed(2)}`;
+  }
+  let ticks = "";
+  for (let k = 0; k < 48; k++){
+    const a = 2*Math.PI*k/48, r1 = r + (k % 4 ? 5 : 3), r2 = r + 8;
+    ticks += `M${(cx+r1*Math.sin(a)).toFixed(2)} ${(cy-r1*Math.cos(a)).toFixed(2)}L${(cx+r2*Math.sin(a)).toFixed(2)} ${(cy-r2*Math.cos(a)).toFixed(2)}`;
+  }
+  return `<svg viewBox="0 0 120 170" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="120" height="170" fill="#F1E3C4"/>
+    <path d="M0 64 Q30 58 60 64 T120 64 M0 116 Q30 110 60 116 T120 116" fill="none" stroke="${tint}" stroke-opacity=".12" stroke-width=".6"/>
+    <rect width="120" height="36" fill="${tint}"/>
+    <text x="60" y="23" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-weight="700" font-size="15" fill="#F3E7CD">The Compass</text>
+    <circle cx="${cx}" cy="${cy}" r="${r+8}" fill="none" stroke="${tint}" stroke-width=".7"/>
+    <path d="${ticks}" stroke="${tint}" stroke-width=".5"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${tint}" stroke-width=".7"/>
+    <polygon points="${poly}" fill="${tint}" fill-opacity=".08" stroke="${tint}" stroke-width="1"/>
+    <path d="${star}" fill="none" stroke="#8E3B24" stroke-width=".7" stroke-opacity=".85"/>
+    <circle cx="${cx}" cy="${cy}" r="1.8" fill="${tint}"/>
+    <text x="60" y="144" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-weight="700" font-size="12" fill="#3A2513">Volume ${esc(is.id)}</text>
+    <text x="60" y="157" text-anchor="middle" font-family="Source Sans 3,Arial,sans-serif" font-size="7.5" fill="#654428">${esc(is.month)} ${is.year}</text>
+    <rect x="4" y="4" width="112" height="162" fill="none" stroke="${tint}" stroke-opacity=".35" stroke-width=".6"/>
+  </svg>`;
+}
+function coverMarkup(is){
+  return is.cover
+    ? `<img src="${esc(is.cover)}" alt="" loading="lazy" decoding="async">`
+    : coverSVG(is);
+}
+
+/* ------------------------------------------------------- download markup */
+const PDF_ICON = `<svg class="dl-icon" viewBox="0 0 22 26" aria-hidden="true">
+  <path d="M2 1h12l6 6v18H2z" fill="#F3E7CD"/>
+  <path d="M14 1v6h6" fill="#D8C39A"/>
+  <path d="M2 1h12l6 6v18H2z" fill="none" stroke="#3A2513" stroke-width="1.2" stroke-linejoin="round"/>
+  <rect x="0" y="13" width="17" height="8" rx="1" fill="#B23A24"/>
+  <text x="8.5" y="19.3" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="6.2" fill="#fff">PDF</text>
+</svg>`;
+const idleLabel = is => `Download (PDF, ${is.size || "large file"})`;
+
+function dlMarkup(is, large){
+  return `<div class="dl${large ? " dl--large" : ""}" data-id="${esc(is.id)}" data-state="idle">
+    <button class="dl-btn" type="button" aria-describedby="msg-${esc(is.id)}${large ? "-lg" : ""}">
+      <span class="dl-fill"></span>${PDF_ICON}<span class="dl-spin" aria-hidden="true"></span>
+      <span class="dl-label">${esc(idleLabel(is))}</span>
+    </button>
+    <button class="dl-cancel" type="button" aria-label="Cancel download of Volume ${esc(is.id)}">×</button>
+    <p class="dl-msg" id="msg-${esc(is.id)}${large ? "-lg" : ""}" role="status" aria-live="polite"></p>
+  </div>`;
+}
+
+/* ---------------------------------------------------------------- render */
+function render(){
+  const cur = ISSUES[0];
+  document.getElementById("heroIssue").textContent = `Current Issue: Volume ${cur.id}, ${cur.month} ${cur.year}`;
+  document.getElementById("currentSlot").innerHTML = `
+    <div class="current-grid">
+      <span class="cover-lg">${coverMarkup(cur)}</span>
+      <div class="current-copy">
+        <h3 class="issue-name">Volume ${esc(cur.id)}</h3>
+        <p class="issue-date">${esc(cur.month)} ${cur.year}</p>
+        <p class="note">The latest issue, free to download and share with teachers and students, with attribution. This is a large file; on mobile data, Wi-Fi is recommended.</p>
+        ${dlMarkup(cur, true)}
+      </div>
+    </div>`;
+
+  const past = ISSUES.slice(1);
+  const vols = [...new Set(past.map(i => i.volume))].sort((a,b) => b - a);
+  document.getElementById("archiveSlot").innerHTML = vols.map(v => {
+    const list = past.filter(i => i.volume === v);
+    const years = [...new Set(list.map(i => i.year))].join("–");
+    return `<div class="vol">
+      <div class="vol-head"><h3>Volume ${v}</h3><span>${years}, ${list.length} ${list.length === 1 ? "issue" : "issues"}</span></div>
+      <ul class="issues">
+        ${list.map(is => `<li class="issue">
+          <span class="thumb">${coverMarkup(is)}</span>
+          <div>
+            <h4>Volume ${esc(is.id)}</h4>
+            <p class="date">${esc(is.month)} ${is.year}</p>
+            ${dlMarkup(is, false)}
+          </div>
+        </li>`).join("")}
+      </ul>
+    </div>`;
+  }).join("");
+}
+
+/* ----------------------------------------------------------- file sizes */
+const fmtMB = b => {
+  const mb = b / 1048576;
+  return mb < 10 ? `${mb.toFixed(1)} MB` : `${Math.round(mb)} MB`;
+};
+function detectSizes(){
+  if (!/^https?:$/.test(location.protocol)) return;
+  ISSUES.forEach(async is => {
+    try{
+      const r = await fetch(is.file, {method:"HEAD", cache:"no-cache"});
+      if (!r.ok) return;
+      const n = +r.headers.get("content-length");
+      if (!n) return;
+      is._bytes = n;
+      if (!is.size) is.size = fmtMB(n);
+      document.querySelectorAll(`.dl[data-id="${is.id}"]`).forEach(el => {
+        if (el.dataset.state === "idle") el.querySelector(".dl-label").textContent = idleLabel(is);
+      });
+    }catch(e){ /* offline or blocked: keep the "large file" label */ }
+  });
+}
+
+/* ------------------------------------------------------ download manager */
+const active = new Map();   // id -> AbortController
+const timers = new Map();   // id -> reset timer
+
+function setDL(id, state, label, msg, pct){
+  document.querySelectorAll(`.dl[data-id="${id}"]`).forEach(el => {
+    el.dataset.state = state;
+    el.querySelector(".dl-label").textContent = label;
+    el.querySelector(".dl-msg").textContent = msg || "";
+    const fill = el.querySelector(".dl-fill");
+    fill.style.width = (pct == null ? 0 : pct) + "%";
+    el.querySelector(".dl-btn").setAttribute("aria-busy", state === "loading" || state === "indeterminate" ? "true" : "false");
+  });
+}
+function resetLater(id, ms){
+  clearTimeout(timers.get(id));
+  timers.set(id, setTimeout(() => {
+    if (!active.has(id)) setDL(id, "idle", idleLabel(byId(id)), "");
+  }, ms));
+}
+function saveBlob(blob, name){
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = name; a.rel = "noopener";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
+function directDownload(is){
+  // Used when progress can't be measured (opened from disk, or files hosted elsewhere).
+  const a = document.createElement("a");
+  a.href = is.file; a.download = is.file.split("/").pop(); a.rel = "noopener";
+  document.body.appendChild(a); a.click(); a.remove();
+  setDL(is.id, "indeterminate", "Starting download…", "Your browser is downloading the file. Check your downloads folder.");
+  resetLater(is.id, 6000);
+}
+
+async function startDownload(id){
+  const is = byId(id);
+  if (!is || active.has(id)) return;
+  clearTimeout(timers.get(id));
+  const name = is.file.split("/").pop();
+
+  if (!/^https?:$/.test(location.protocol)) { directDownload(is); return; }
+
+  const ctrl = new AbortController();
+  active.set(id, ctrl);
+  setDL(id, "loading", "Connecting…", `Preparing Volume ${id}`, 2);
+
+  let res;
+  try{
+    res = await fetch(is.file, {signal: ctrl.signal});
+  }catch(err){
+    active.delete(id);
+    if (err.name === "AbortError"){ setDL(id, "idle", idleLabel(is), "Download cancelled."); resetLater(id, 4000); return; }
+    directDownload(is);      // cross-origin host or network policy: hand over to the browser
+    return;
+  }
+
+  if (!res.ok){
+    active.delete(id);
+    const msg = res.status === 404
+      ? "This issue isn't available for download yet. Please check back soon."
+      : `The download stopped (error ${res.status}). Check your connection and try again.`;
+    setDL(id, "error", "Try again", msg);
+    return;
+  }
+
+  const total = +res.headers.get("content-length") || is._bytes || 0;
+  try{
+    let blob;
+    if (res.body && res.body.getReader){
+      const reader = res.body.getReader();
+      const chunks = [];
+      let got = 0, lastPaint = 0;
+      for(;;){
+        const {done, value} = await reader.read();
+        if (done) break;
+        chunks.push(value); got += value.length;
+        const now = performance.now();
+        if (now - lastPaint > 90){
+          lastPaint = now;
+          if (total){
+            const pct = Math.min(99, Math.round(got / total * 100));
+            setDL(id, "loading", `Downloading ${pct}%`, `${fmtMB(got)} of ${fmtMB(total)}`, pct);
+          } else {
+            setDL(id, "indeterminate", "Downloading…", `${fmtMB(got)} received`);
+          }
+        }
+      }
+      blob = new Blob(chunks, {type:"application/pdf"});
+    } else {
+      setDL(id, "indeterminate", "Downloading…", "This may take a minute for large files.");
+      blob = await res.blob();
+    }
+    active.delete(id);
+    setDL(id, "done", "Downloaded", `Saved as ${name}`, 100);
+    saveBlob(blob, name);
+    resetLater(id, 6000);
+  }catch(err){
+    active.delete(id);
+    if (err.name === "AbortError"){ setDL(id, "idle", idleLabel(is), "Download cancelled."); resetLater(id, 4000); return; }
+    setDL(id, "error", "Try again", "The download was interrupted. Check your connection and try again.");
+  }
+}
+
+document.addEventListener("click", e => {
+  const btn = e.target.closest(".dl-btn");
+  if (btn){ startDownload(btn.closest(".dl").dataset.id); return; }
+  const cancel = e.target.closest(".dl-cancel");
+  if (cancel){
+    const ctrl = active.get(cancel.closest(".dl").dataset.id);
+    if (ctrl) ctrl.abort();
+  }
+});
+
+/* ------------------------------------------------------------ navigation */
+function initNav(){
+  const nav = document.getElementById("nav");
+  const btn = document.getElementById("menuBtn");
+  const onScroll = () => nav.classList.toggle("is-scrolled", window.scrollY > 24);
+  onScroll();
+  window.addEventListener("scroll", onScroll, {passive:true});
+  btn.addEventListener("click", () => {
+    const open = nav.classList.toggle("is-open");
+    btn.setAttribute("aria-expanded", open);
+    btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  });
+  document.querySelectorAll(".nav-links a").forEach(a => a.addEventListener("click", () => {
+    nav.classList.remove("is-open");
+    btn.setAttribute("aria-expanded", "false");
+    btn.setAttribute("aria-label", "Open menu");
+  }));
+}
+
+/* ------------------------------------------------------------- world map */
+let landCache = null;
+async function drawMap(){
+  const canvas = document.getElementById("map");
+  const hero = document.getElementById("hero");
+  if (!window.d3 || !window.topojson) return;
+  const w = hero.clientWidth, h = hero.clientHeight;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+  const ctx = canvas.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, w, h);
+
+  if (!landCache){
+    try{
+      const topo = await (await fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json")).json();
+      landCache = topojson.feature(topo, topo.objects.land);
+    }catch(e){ landCache = false; }
+  }
+
+  const sphere = {type:"Sphere"};
+  const proj = d3.geoNaturalEarth1().fitExtent([[0,0],[w,h]], sphere);
+  const tmp = d3.geoPath(proj).bounds(sphere);
+  const k = Math.max(w / (tmp[1][0] - tmp[0][0]), h / (tmp[1][1] - tmp[0][1])) * 1.06;
+  proj.scale(proj.scale() * k).translate([w * 0.5, h * 0.52]);
+  const path = d3.geoPath(proj, ctx);
+
+  // graticule
+  ctx.beginPath(); path(d3.geoGraticule().step([15,15])());
+  ctx.strokeStyle = "rgba(90,58,30,.16)"; ctx.lineWidth = .6; ctx.stroke();
+
+  if (landCache){
+    // engraved "water-lining" along the coasts, clipped to the sea
+    ctx.save();
+    ctx.beginPath(); path(sphere); path(landCache); ctx.clip("evenodd");
+    for (let i = 4; i >= 1; i--){
+      ctx.beginPath(); path(landCache);
+      ctx.strokeStyle = `rgba(110,72,34,${0.03 + (4 - i) * 0.018})`;
+      ctx.lineWidth = i * 4.5; ctx.lineJoin = "round"; ctx.stroke();
+    }
+    ctx.restore();
+    ctx.beginPath(); path(landCache);
+    ctx.fillStyle = "rgba(160,112,58,.13)"; ctx.fill();
+    ctx.strokeStyle = "rgba(74,48,24,.55)"; ctx.lineWidth = .9; ctx.stroke();
+  }
+
+  // neatline around the globe
+  ctx.beginPath(); path(sphere);
+  ctx.strokeStyle = "rgba(74,48,24,.45)"; ctx.lineWidth = 1.4; ctx.stroke();
+
+  // portolan rhumb lines radiating from the compass
+  const stage = document.getElementById("stage").getBoundingClientRect();
+  const hr = hero.getBoundingClientRect();
+  const cx = stage.left - hr.left + stage.width / 2;
+  const cy = stage.top - hr.top + stage.height / 2;
+  const R = Math.hypot(w, h);
+  for (let i = 0; i < 32; i++){
+    const a = i * Math.PI / 16;
+    const major = i % 4 === 0, half = i % 2 === 0;
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.sin(a) * stage.width * 0.42, cy - Math.cos(a) * stage.width * 0.42);
+    ctx.lineTo(cx + Math.sin(a) * R, cy - Math.cos(a) * R);
+    ctx.strokeStyle = major ? "rgba(74,48,24,.28)" : half ? "rgba(142,59,36,.22)" : "rgba(79,107,89,.20)";
+    ctx.lineWidth = major ? 1 : .7;
+    ctx.stroke();
+  }
+  ctx.beginPath(); ctx.arc(cx, cy, stage.width * 0.42, 0, Math.PI * 2);
+  ctx.strokeStyle = "rgba(74,48,24,.22)"; ctx.lineWidth = .8; ctx.stroke();
+
+  canvas.classList.add("is-drawn");
+  hero.classList.add("map-ready");
+}
+
+function initMap(){
+  drawMap();
+  let t;
+  window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(drawMap, 180); });
+  if (!REDUCED){
+    const canvas = document.getElementById("map");
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(() => {
+        const y = Math.min(window.scrollY, window.innerHeight * 1.2);
+        canvas.style.transform = `translate3d(0,${y * 0.22}px,0)`;
+        ticking = false;
+      });
+    }, {passive:true});
+  }
+}
+
+/* ---------------------------------------------------------- 3D compass */
+function drawDial(cv){
+  const g = cv.getContext("2d"), S = cv.width, c = S / 2;
+  g.clearRect(0, 0, S, S);
+  const P = (a, r) => [c + r * Math.sin(a), c - r * Math.cos(a)];
+
+  const rg = g.createRadialGradient(c, c * .9, S * .05, c, c, c);
+  rg.addColorStop(0, "#F6EBD0"); rg.addColorStop(.72, "#EAD7AE"); rg.addColorStop(1, "#C9A56B");
+  g.fillStyle = rg; g.beginPath(); g.arc(c, c, c, 0, Math.PI * 2); g.fill();
+  for (let i = 0; i < 1600; i++){
+    const a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * c;
+    g.fillStyle = `rgba(110,70,30,${Math.random() * .09})`;
+    g.fillRect(c + Math.cos(a) * r, c + Math.sin(a) * r, 1.6, 1.6);
+  }
+
+  g.strokeStyle = "#3A2513";
+  [[.975,4],[.915,1.6],[.8,1.8],[.785,.8]].forEach(([r,lw]) => { g.lineWidth = lw; g.beginPath(); g.arc(c, c, c * r, 0, Math.PI * 2); g.stroke(); });
+
+  for (let d = 0; d < 360; d++){
+    const a = d * Math.PI / 180;
+    const r1 = d % 10 === 0 ? c * .918 : d % 5 === 0 ? c * .935 : c * .95;
+    const [x1,y1] = P(a, r1), [x2,y2] = P(a, c * .972);
+    g.lineWidth = d % 10 === 0 ? 2.4 : 1.1;
+    g.beginPath(); g.moveTo(x1, y1); g.lineTo(x2, y2); g.stroke();
+  }
+
+  // faint 32 rhumbs
+  g.lineWidth = .9; g.strokeStyle = "rgba(58,37,19,.22)";
+  for (let i = 0; i < 32; i++){ const [x,y] = P(i * Math.PI / 16, c * .78); g.beginPath(); g.moveTo(c, c); g.lineTo(x, y); g.stroke(); }
+
+  // degree numbers
+  g.fillStyle = "#3A2513"; g.textAlign = "center"; g.textBaseline = "middle";
+  for (let d = 30; d < 360; d += 30){
+    if (d % 90 === 0) continue;
+    const a = d * Math.PI / 180, [x,y] = P(a, c * .86);
+    g.save(); g.translate(x, y); g.rotate(a);
+    g.font = `600 ${S * .03}px "Source Sans 3", Arial, sans-serif`; g.fillText(String(d), 0, 0); g.restore();
+  }
+  // cardinal letters
+  [["N",0],["E",90],["S",180],["W",270]].forEach(([L,d]) => {
+    const a = d * Math.PI / 180, [x,y] = P(a, c * .858);
+    g.save(); g.translate(x, y); g.rotate(a);
+    g.fillStyle = L === "N" ? "#8E3B24" : "#3A2513";
+    g.font = `700 ${S * .072}px "Cormorant Garamond", Georgia, serif`; g.fillText(L, 0, S * .004); g.restore();
+  });
+
+  // compass rose
+  function point(a, len, w, dark, light){
+    const tip = P(a, len), l = P(a - Math.PI / 2, w), r = P(a + Math.PI / 2, w);
+    g.beginPath(); g.moveTo(c, c); g.lineTo(...tip); g.lineTo(...l); g.closePath(); g.fillStyle = light; g.fill();
+    g.beginPath(); g.moveTo(c, c); g.lineTo(...tip); g.lineTo(...r); g.closePath(); g.fillStyle = dark; g.fill();
+    g.beginPath(); g.moveTo(...l); g.lineTo(...tip); g.lineTo(...r); g.strokeStyle = "#3A2513"; g.lineWidth = 1.4; g.stroke();
+  }
+  for (let i = 0; i < 8; i++)  point((i * 45 + 22.5) * Math.PI / 180, c * .44, c * .035, "#A9804F", "#EFE0BD");
+  for (let i = 0; i < 4; i++)  point((i * 90 + 45) * Math.PI / 180, c * .57, c * .065, "#8A5A2B", "#E8D3A6");
+  for (let i = 0; i < 4; i++)  point(i * Math.PI / 2, c * .75, c * .09, i === 0 ? "#8E3B24" : "#3A2513", "#F1E2C0");
+
+  g.beginPath(); g.arc(c, c, c * .07, 0, Math.PI * 2); g.fillStyle = "#EAD7AE"; g.fill();
+  g.lineWidth = 2; g.strokeStyle = "#3A2513"; g.stroke();
+}
+
+function makeEnv(renderer){
+  const cv = document.createElement("canvas"); cv.width = 1024; cv.height = 512;
+  const g = cv.getContext("2d");
+  const gr = g.createLinearGradient(0, 0, 0, 512);
+  gr.addColorStop(0, "#FFF4DA"); gr.addColorStop(.32, "#E6BE80"); gr.addColorStop(.5, "#8A5A2B");
+  gr.addColorStop(.64, "#3C2613"); gr.addColorStop(1, "#1C1008");
+  g.fillStyle = gr; g.fillRect(0, 0, 1024, 512);
+  g.fillStyle = "rgba(255,251,238,.95)";
+  g.fillRect(170, 58, 150, 110); g.fillRect(610, 36, 96, 150); g.fillRect(880, 90, 70, 60);
+  const glow = g.createRadialGradient(420, 120, 10, 420, 120, 260);
+  glow.addColorStop(0, "rgba(255,236,196,.8)"); glow.addColorStop(1, "rgba(255,236,196,0)");
+  g.fillStyle = glow; g.fillRect(0, 0, 1024, 512);
+  const tex = new THREE.CanvasTexture(cv);
+  tex.mapping = THREE.EquirectangularReflectionMapping;
+  tex.encoding = THREE.sRGBEncoding;
+  const pm = new THREE.PMREMGenerator(renderer);
+  const env = pm.fromEquirectangular(tex).texture;
+  tex.dispose(); pm.dispose();
+  return env;
+}
+
+function initCompass(){
+  const stage = document.getElementById("stage");
+  const hero = document.getElementById("hero");
+  if (!window.THREE){ stage.classList.add("no-webgl"); return; }
+  let renderer;
+  try{
+    renderer = new THREE.WebGLRenderer({antialias:true, alpha:true, powerPreference:"high-performance"});
+  }catch(e){ stage.classList.add("no-webgl"); return; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.0;
+  renderer.setClearColor(0x000000, 0);
+  renderer.domElement.setAttribute("aria-hidden", "true");
+  stage.appendChild(renderer.domElement);
+
+  const scene = new THREE.Scene();
+  scene.environment = makeEnv(renderer);
+  const camera = new THREE.PerspectiveCamera(28, 1, .1, 50);
+  const camBase = new THREE.Vector3(0, 4.6, 3.8);
+
+  const key = new THREE.DirectionalLight(0xFFF0D6, 1.5); key.position.set(-3, 6, 4); scene.add(key);
+  const rim = new THREE.DirectionalLight(0xFFD9A0, .55); rim.position.set(4, 2, -3); scene.add(rim);
+  scene.add(new THREE.AmbientLight(0xFFF4E0, .22));
+
+  const brass     = new THREE.MeshStandardMaterial({color:0xCB994C, metalness:1, roughness:.28});
+  const brassDark = new THREE.MeshStandardMaterial({color:0x9E7134, metalness:1, roughness:.4, side:THREE.DoubleSide});
+  const steel     = new THREE.MeshStandardMaterial({color:0xDAD3C5, metalness:1, roughness:.2});
+  const oxide     = new THREE.MeshStandardMaterial({color:0x7A2414, metalness:.3, roughness:.42, envMapIntensity:.6});
+
+  const root = new THREE.Group(); scene.add(root);
+  const body = new THREE.Group(); root.add(body);
+
+  // case (lathe profile: base, bulging wall, lip, inner wall)
+  const prof = [[0,-.16],[.86,-.16],[.98,-.13],[1.05,-.06],[1.08,.02],[1.07,.09],[1.03,.13],[.97,.145],[.95,.12],[.95,.03],[0,.03]]
+    .map(p => new THREE.Vector2(p[0], p[1]));
+  body.add(new THREE.Mesh(new THREE.LatheGeometry(prof, 128), brassDark));
+
+  const bezel = new THREE.Mesh(new THREE.TorusGeometry(1.0, .045, 24, 160), brass);
+  bezel.rotation.x = Math.PI / 2; bezel.position.y = .14; body.add(bezel);
+  const band = new THREE.Mesh(new THREE.TorusGeometry(1.078, .016, 12, 160), brass);
+  band.rotation.x = Math.PI / 2; band.position.y = .015; body.add(band);
+
+  // dial
+  const dialCanvas = document.createElement("canvas"); dialCanvas.width = dialCanvas.height = 1024;
+  drawDial(dialCanvas);
+  const dialTex = new THREE.CanvasTexture(dialCanvas);
+  dialTex.encoding = THREE.sRGBEncoding;
+  dialTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  const faceGeo = new THREE.CircleGeometry(.95, 128); faceGeo.rotateX(-Math.PI / 2);
+  const face = new THREE.Mesh(faceGeo, new THREE.MeshStandardMaterial({map:dialTex, roughness:.9, metalness:0, envMapIntensity:.35}));
+  face.position.y = .032; body.add(face);
+
+  // bow (pendant ring) at north
+  const crown = new THREE.Mesh(new THREE.CylinderGeometry(.075, .085, .2, 32), brass);
+  crown.rotation.x = Math.PI / 2; crown.position.set(0, .01, -1.13); body.add(crown);
+  const knob = new THREE.Mesh(new THREE.SphereGeometry(.06, 24, 16), brass);
+  knob.position.set(0, .01, -1.24); body.add(knob);
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(.17, .034, 20, 64), brass);
+  ring.rotation.x = Math.PI / 2; ring.position.set(0, .01, -1.42); body.add(ring);
+
+  // needle
+  const needle = new THREE.Group(); needle.position.y = .075; body.add(needle);
+  function half(tip, mat){
+    const s = new THREE.Shape();
+    s.moveTo(0, tip); s.lineTo(.07, 0); s.lineTo(-.07, 0); s.closePath();
+    const geo = new THREE.ExtrudeGeometry(s, {depth:.012, bevelEnabled:true, bevelThickness:.01, bevelSize:.008, bevelSegments:2});
+    geo.rotateX(-Math.PI / 2);
+    needle.add(new THREE.Mesh(geo, mat));
+  }
+  half(.8, oxide); half(-.8, steel);
+  const cap = new THREE.Mesh(new THREE.CylinderGeometry(.05, .065, .045, 32), brass);
+  cap.position.y = .035; needle.add(cap);
+  const capTop = new THREE.Mesh(new THREE.SphereGeometry(.035, 20, 12), brass);
+  capTop.position.y = .06; needle.add(capTop);
+
+  // glass
+  const glassGeo = new THREE.CircleGeometry(.965, 96); glassGeo.rotateX(-Math.PI / 2);
+  const glass = new THREE.Mesh(glassGeo, new THREE.MeshPhysicalMaterial({
+    color:0xFFFFFF, metalness:0, roughness:.03, transparent:true, opacity:.13,
+    clearcoat:1, clearcoatRoughness:0, envMapIntensity:1.6, depthWrite:false
+  }));
+  glass.position.y = .135; body.add(glass);
+
+  // soft shadow on the map
+  const sc = document.createElement("canvas"); sc.width = sc.height = 256;
+  const sg = sc.getContext("2d");
+  const sgr = sg.createRadialGradient(128, 128, 0, 128, 128, 128);
+  sgr.addColorStop(0, "rgba(40,24,10,.55)"); sgr.addColorStop(.4, "rgba(40,24,10,.22)"); sgr.addColorStop(.7, "rgba(40,24,10,0)"); sgr.addColorStop(1, "rgba(40,24,10,0)");
+  sg.fillStyle = sgr; sg.fillRect(0, 0, 256, 256);
+  const shadowGeo = new THREE.PlaneGeometry(3.2, 3.2); shadowGeo.rotateX(-Math.PI / 2);
+  const shadowMat = new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(sc), transparent:true, depthWrite:false});
+  const shadow = new THREE.Mesh(shadowGeo, shadowMat);
+  shadow.position.set(.08, -.5, -.05); scene.add(shadow);
+
+  // redraw dial once web fonts are ready
+  if (document.fonts && document.fonts.load){
+    Promise.all([
+      document.fonts.load('700 72px "Cormorant Garamond"'),
+      document.fonts.load('600 30px "Source Sans 3"')
+    ]).then(() => { drawDial(dialCanvas); dialTex.needsUpdate = true; if (REDUCED) draw(); }).catch(() => {});
+  }
+
+  function resize(){
+    const w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    const k = camera.aspect < 1 ? 1 / camera.aspect : 1;
+    camera.position.copy(camBase).multiplyScalar(k);
+    camera.lookAt(0, -.05, -.16);
+    camera.updateProjectionMatrix();
+    if (REDUCED) draw();
+  }
+  function draw(){ renderer.render(scene, camera); }
+
+  if (typeof ResizeObserver !== "undefined") new ResizeObserver(resize).observe(stage);
+  else window.addEventListener("resize", resize);
+  resize();
+
+  if (REDUCED){ draw(); return; }
+
+  /* ---- motion: the case turns with scrolling; the needle hunts for north ---- */
+  const wrapA = a => { a = (a + Math.PI) % (Math.PI * 2); if (a < 0) a += Math.PI * 2; return a - Math.PI; };
+  const S = {
+    needle: Math.random() * Math.PI * 2, vel: 15 + Math.random() * 3,
+    caseAng: 0, prevCase: -1.4, kick: 0,
+    px: 0, py: 0, tx: 0, ty: 0
+  };
+  let lastY = window.scrollY;
+  window.addEventListener("scroll", () => { S.kick += window.scrollY - lastY; lastY = window.scrollY; }, {passive:true});
+  hero.addEventListener("pointermove", e => {
+    if (e.pointerType !== "mouse") return;
+    const r = hero.getBoundingClientRect();
+    S.tx = (e.clientX - r.left) / r.width * 2 - 1;
+    S.ty = (e.clientY - r.top) / r.height * 2 - 1;
+  });
+  hero.addEventListener("pointerleave", () => { S.tx = 0; S.ty = 0; });
+
+  const t0 = performance.now(); let last = t0, raf = 0, visible = true;
+  function frame(now){
+    raf = requestAnimationFrame(frame);
+    const dt = Math.min((now - last) / 1000, .05); last = now;
+    const t = (now - t0) / 1000;
+    const intro = Math.min(t / 1.8, 1), e = 1 - Math.pow(1 - intro, 3);
+
+    // case orientation follows scroll (plus an intro turn)
+    S.caseAng += (window.scrollY * .0024 - S.caseAng) * (1 - Math.exp(-dt * 4));
+    const caseShown = S.caseAng + (1 - e) * -1.4;
+    const caseVel = (caseShown - S.prevCase) / Math.max(dt, 1e-3);
+    S.prevCase = caseShown;
+
+    // needle: damped spring towards north with a gentle magnetic tremor
+    const target = .045 * Math.sin(t * .9) + .025 * Math.sin(t * 2.3 + 1);
+    S.vel += Math.max(-6, Math.min(6, S.kick * .004)); S.kick = 0;
+    const acc = -7 * wrapA(S.needle - target) - 1.0 * (S.vel - .5 * caseVel);
+    S.vel += acc * dt; S.needle += S.vel * dt;
+
+    // float, tilt towards the pointer
+    S.px += (S.tx - S.px) * (1 - Math.exp(-dt * 3));
+    S.py += (S.ty - S.py) * (1 - Math.exp(-dt * 3));
+    const bob = Math.sin(t * 1.15) * .07;
+    root.position.y = bob + (1 - e) * -.35;
+    root.scale.setScalar(.86 + .14 * e);
+    root.rotation.x = S.py * .16 + Math.sin(t * .7) * .03;
+    root.rotation.z = -S.px * .16 + Math.sin(t * .9 + 1) * .025;
+    body.rotation.y = caseShown;
+    needle.rotation.y = S.needle - caseShown;
+
+    const lift = root.position.y + .35;
+    shadow.scale.setScalar(1 - bob * .6);
+    shadowMat.opacity = Math.max(0, .9 - lift * .6) * e;
+
+    draw();
+  }
+  const run = () => { if (!raf && visible && !document.hidden){ last = performance.now(); raf = requestAnimationFrame(frame); } };
+  const stop = () => { cancelAnimationFrame(raf); raf = 0; };
+  if ("IntersectionObserver" in window){
+    new IntersectionObserver(([en]) => { visible = en.isIntersecting; visible ? run() : stop(); }).observe(hero);
+  }
+  document.addEventListener("visibilitychange", () => document.hidden ? stop() : run());
+  run();
+}
+
+/* ------------------------------------------------------------------ boot */
+render();
+initNav();
+detectSizes();
+initCompass();
+initMap();
+})();
+</script>
+</body>
+</html>
