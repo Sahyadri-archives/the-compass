@@ -34,11 +34,50 @@
   --oxide:#8E3B24;
   --footer:#4B3322;
   --footer-text:#E6D6B2;
+  --nav-bg:rgba(243,231,205,.96);
+  --card-bg:rgba(233,220,182,.45);
+  --card-border:rgba(138,90,43,.4);
   --serif:"Cormorant Garamond","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
   --sans:"Source Sans 3","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
   --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .22  0 0 0 0 .1  0 0 0 .10 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   --nav-h:64px;
   color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --parchment:#1C140C;
+  --parchment-deep:#241A11;
+  --vellum:#2E2013;
+  --sepia:#D0A165;
+  --sepia-soft:#B98A54;
+  --ink:#F1E4C8;
+  --ink-soft:#C9B48C;
+  --brass:#C99A5B;
+  --oxide:#D9764F;
+  --footer:#120C07;
+  --footer-text:#E6D6B2;
+  --nav-bg:rgba(28,20,12,.94);
+  --card-bg:rgba(46,32,19,.55);
+  --card-border:rgba(201,180,140,.3);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]):not([data-theme="dark"]){
+    --parchment:#1C140C;
+    --parchment-deep:#241A11;
+    --vellum:#2E2013;
+    --sepia:#D0A165;
+    --sepia-soft:#B98A54;
+    --ink:#F1E4C8;
+    --ink-soft:#C9B48C;
+    --brass:#C99A5B;
+    --oxide:#D9764F;
+    --footer:#120C07;
+    --footer-text:#E6D6B2;
+    --nav-bg:rgba(28,20,12,.94);
+    --card-bg:rgba(46,32,19,.55);
+    --card-border:rgba(201,180,140,.3);
+    color-scheme:dark;
+  }
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -55,7 +94,7 @@ a{color:inherit}
 /* nav (simplified, static — no scroll-aware JS needed on this page) */
 .nav{
   position:sticky;top:0;left:0;right:0;z-index:50;
-  background-color:rgba(243,231,205,.96);box-shadow:0 1px 0 rgba(138,90,43,.28);
+  background-color:var(--nav-bg);box-shadow:0 1px 0 rgba(138,90,43,.28);
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
   padding-top:env(safe-area-inset-top,0px);
 }
@@ -66,10 +105,21 @@ a{color:inherit}
 }
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--serif);font-weight:700;font-size:1.3rem;color:var(--ink)}
 .brand svg{width:28px;height:28px;flex:none}
+.nav-right{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 .nav-links{display:flex;flex-wrap:wrap;gap:clamp(14px,2.4vw,30px);list-style:none;margin:0;padding:0}
 .nav-links a{text-decoration:none;font-size:.98rem;font-weight:600;color:var(--ink-soft);padding:6px 0;border-bottom:1.5px solid transparent;transition:color .2s,border-color .2s}
 .nav-links a:hover{color:var(--ink);border-bottom-color:var(--sepia-soft)}
 .nav-links a[aria-current]{color:var(--ink);border-bottom-color:var(--sepia)}
+.theme-toggle{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:38px;height:38px;flex:none;border:1px solid var(--card-border);border-radius:50%;
+  background:transparent;color:var(--ink);cursor:pointer;transition:background-color .2s;
+}
+.theme-toggle:hover{background:rgba(138,90,43,.1)}
+.theme-toggle svg{width:18px;height:18px}
+.theme-toggle .icon-sun{display:none}
+:root[data-theme="dark"] .theme-toggle .icon-moon{display:none}
+:root[data-theme="dark"] .theme-toggle .icon-sun{display:block}
 
 .section{padding:clamp(56px,9vw,104px) clamp(20px,4vw,32px)}
 .measure{max-width:40rem;margin:0 auto}
@@ -89,8 +139,8 @@ a{color:inherit}
 ol.steps{margin:0 0 1.4em;padding-left:1.3em}
 ol.steps li{margin-bottom:.7em}
 .callout{
-  margin:2em 0;padding:22px 24px;border:1.5px solid rgba(138,90,43,.4);border-radius:4px;
-  background:rgba(233,220,182,.45);
+  margin:2em 0;padding:22px 24px;border:1.5px solid var(--card-border);border-radius:4px;
+  background:var(--card-bg);
 }
 .callout p{margin:0 0 .6em}
 .callout p:last-child{margin-bottom:0}
@@ -103,7 +153,7 @@ ol.steps li{margin-bottom:.7em}
 .btn:hover{background:#56391F}
 .tag-pill{
   display:inline-flex;align-items:center;padding:5px 13px;margin:0 8px 8px 0;
-  border:1.3px solid rgba(138,90,43,.4);border-radius:999px;background:rgba(233,220,182,.5);
+  border:1.3px solid var(--card-border);border-radius:999px;background:var(--card-bg);
   color:var(--ink-soft);font:600 .84rem/1 var(--sans);text-transform:lowercase;
 }
 
@@ -124,21 +174,27 @@ ol.steps li{margin-bottom:.7em}
   <div class="nav-inner">
     <a class="brand" href="index.html">
       <svg viewBox="0 0 40 40" aria-hidden="true">
-        <circle cx="20" cy="20" r="18" fill="none" stroke="#3A2513" stroke-width="2"/>
+        <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2"/>
         <circle cx="20" cy="20" r="14" fill="none" stroke="#A97D3B" stroke-width="1"/>
-        <path d="M20 4 L23 20 L20 36 L17 20Z" fill="#3A2513"/>
+        <path d="M20 4 L23 20 L20 36 L17 20Z" fill="currentColor"/>
         <path d="M20 4 L23 20 L17 20Z" fill="#8E3B24"/>
         <circle cx="20" cy="20" r="2.2" fill="#A97D3B"/>
       </svg>
       The Compass
     </a>
-    <ul class="nav-links">
+    <div class="nav-right">
+      <ul class="nav-links">
       <li><a href="index.html#intent">About</a></li>
       <li><a href="index.html#current">Current issue</a></li>
       <li><a href="index.html#archive">Archive</a></li>
       <li><a href="submit.html" aria-current="page">Write for us</a></li>
       <li><a href="index.html#contact">Contact</a></li>
     </ul>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.6M12 18.9v2.6M4.2 12H1.6M22.4 12h-2.6M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -204,6 +260,35 @@ ol.steps li{margin-bottom:.7em}
     <p class="footer-bottom">©Community Mathematics Centre, Schools of the KFI</p>
   </div>
 </footer>
+
+<script>
+(function(){
+  "use strict";
+  var KEY = "compass-theme";
+  var toggle = document.getElementById("themeToggle");
+  var root = document.documentElement;
+
+  function apply(theme){
+    if (theme === "dark" || theme === "light") root.setAttribute("data-theme", theme);
+    else root.removeAttribute("data-theme");
+    var isDark = theme === "dark" || (theme !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    toggle.setAttribute("aria-pressed", String(isDark));
+    toggle.setAttribute("aria-label", isDark ? "Switch to light theme" : "Switch to dark theme");
+  }
+
+  var stored = null;
+  try{ stored = localStorage.getItem(KEY); }catch(e){}
+  apply(stored || "system");
+
+  toggle.addEventListener("click", function(){
+    var current = root.getAttribute("data-theme") ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    var next = current === "dark" ? "light" : "dark";
+    apply(next);
+    try{ localStorage.setItem(KEY, next); }catch(e){}
+  });
+})();
+</script>
 
 </body>
 </html>

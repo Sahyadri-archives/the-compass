@@ -1,0 +1,35 @@
+name: Bug report
+description: Something on the website is broken or not working as expected
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug — what you expected vs. what you saw.
+      placeholder: e.g. "The download button for Volume 2-3 doesn't do anything when I click it."
+    validations:
+      required: true
+  - type: input
+    id: page
+    attributes:
+      label: Page or URL
+      description: Which page were you on?
+      placeholder: e.g. https://sahyadri-archives.github.io/the-compass/#archive
+    validations:
+      required: false
+  - type: input
+    id: device
+    attributes:
+      label: Device / browser
+      placeholder: e.g. iPhone 13, Safari — or Windows 11, Chrome
+    validations:
+      required: false
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot (optional)
+      description: Drag and drop an image here if it helps show the problem.
+    validations:
+      required: false

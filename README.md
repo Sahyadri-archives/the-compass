@@ -8,7 +8,9 @@ The core site is a single file, `index.html` — no build step, runs on GitHub P
 
 ```
 the-compass/
-├── .github/workflows/deploy-pages.yml   ← builds & deploys to Pages
+├── .github/
+│   ├── workflows/deploy-pages.yml    ← builds & deploys to Pages, runs checks
+│   └── ISSUE_TEMPLATE/               ← bug report & content suggestion forms
 ├── index.html
 ├── submit.html                   ← "Write for us" submissions page
 ├── 404.html                      ← styled not-found page
@@ -30,6 +32,8 @@ PDF file names must match the `file` entries in the `ISSUES` list near the botto
 
 - `main` is protected against force-pushes and deletion.
 - Site deploys are handled by `.github/workflows/deploy-pages.yml` — GitHub Pages is set to "Deploy from GitHub Actions" in **Settings → Pages**, not "Deploy from a branch".
+- Every push runs a `checks` job first: an internal-link checker (catches broken hrefs and `#anchor` links before they go live) and a Lighthouse CI report (accessibility/performance, informational — it won't block a deploy). Deploy only runs if the link check passes.
+- Issue templates live in `.github/ISSUE_TEMPLATE/` — bug reports and content-correction suggestions get a structured form; the config also points people submitting *articles* to `submit.html` instead.
 - See [CONTRIBUTING.md](CONTRIBUTING.md) for the day-to-day editing workflow.
 
 ## Publishing on GitHub Pages
@@ -83,3 +87,4 @@ python3 -m http.server 8000
 - Antique world map: d3 and Natural Earth data, drawn with engraved coastlines and portolan rhumb lines.
 - Fonts: Cormorant Garamond (headings) and Source Sans 3 (body text), from Google Fonts.
 - Accessibility: works with keyboard and screen readers, and respects the "reduce motion" setting. If 3D isn't available, a flat compass is shown instead.
+- Dark mode: a toggle in the nav (moon/sun icon) switches the site's reading chrome — nav, sections, footer, forms — between light and dark. It defaults to the visitor's OS preference and remembers their choice via `localStorage`. The hero (compass + map) stays the same in both themes by design, like a book's cover art.

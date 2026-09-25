@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Submit an article to the magazine
+    url: https://sahyadri-archives.github.io/the-compass/submit.html
+    about: Use this for contributing writing to The Compass itself, not the website's code.
+  - name: Email the editors
+    url: mailto:compass.math.2024@gmail.com
+    about: For anything that doesn't fit a bug report or content suggestion.

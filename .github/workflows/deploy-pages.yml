@@ -15,7 +15,38 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check internal links (including in-page anchors)
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # --offline: don't hit the network for external URLs (mailto:,
+          # Google Fonts, CDNs) — this only verifies local file paths and
+          # in-page #anchors actually exist, which is what tends to break
+          # when a page or a section id gets renamed.
+          args: >-
+            --offline --include-fragments --no-progress
+            --exclude-mail
+            './*.html'
+          fail: true
+
+      - name: Lighthouse CI (accessibility & performance report)
+        uses: treosh/lighthouse-ci-action@v12
+        continue-on-error: true
+        with:
+          staticDistDir: "."
+          urls: |
+            /index.html
+            /submit.html
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
   deploy:
+    needs: checks
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -41,3 +72,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+

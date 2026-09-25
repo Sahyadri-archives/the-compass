@@ -1,0 +1,23 @@
+name: Content suggestion or correction
+description: Suggest a change to site content, or report an error in an issue/article
+title: "[Content]: "
+labels: ["content"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For submitting an **article or piece of writing** to the magazine itself, please use the [submissions page](https://sahyadri-archives.github.io/the-compass/submit.html) instead — this form is for corrections or suggestions about the *website's* content (typos, broken links, outdated info, etc).
+  - type: textarea
+    id: details
+    attributes:
+      label: What would you like changed or corrected?
+      placeholder: e.g. "The email address in the footer has a typo" or "Volume 2-1's month should be February, not January."
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Where on the site?
+      placeholder: e.g. Footer, or Archive → Volume 2-1
+    validations:
+      required: false
