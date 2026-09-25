@@ -28,9 +28,14 @@ jobs:
           # Google Fonts, CDNs) — this only verifies local file paths and
           # in-page #anchors actually exist, which is what tends to break
           # when a page or a section id gets renamed.
+          # Excludes root-absolute paths like "/the-compass/" — these are
+          # correct once deployed (GitHub Pages serves the site under that
+          # subpath) but don't resolve against the local repo root here.
           args: >-
             --offline --include-fragments --no-progress
             --exclude-mail
+            --exclude '^/'
+            --exclude '^data:'
             './*.html'
           fail: true
 
